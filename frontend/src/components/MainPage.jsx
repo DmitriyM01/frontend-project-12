@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
-export const MainPage = () => (
-  <nav>
+export const MainPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = window.localStorage.getItem("JWT");
+    if (!token) navigate('/login')
+  }, [])
+  return (
+    <nav>
     <ul>
       <li>
         <Link to="/one">Page One</Link>
@@ -14,4 +22,5 @@ export const MainPage = () => (
       </li>
     </ul>
   </nav>
-);
+  )
+};

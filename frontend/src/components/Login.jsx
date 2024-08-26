@@ -1,6 +1,12 @@
 import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
 import * as yup from 'yup';
+import axios from 'axios';
+
+import { actions as AuthorizationActions } from '../slices/authorizationSlice.js';
+import { useDispatch } from 'react-redux';
 import { useRef, useEffect } from 'react'
+
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = yup.object().shape({
     login: yup.string()
@@ -9,21 +15,37 @@ const loginSchema = yup.object().shape({
     .max(20, 'Максимум 20 символов'),
     password: yup.string()
     .required('Это обязательное поле')
-    .min(8, 'Минимум 8 символов')
+    .min(4, 'Минимум 4 символа')
     .max(20, 'Максимум 20 символов'),
 })
 
 
 const LoginForm = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <Formik
             initialValues={{
                 login: '',
                 password: '',
             }}
-            onSubmit={(values, actions) => {
+            onSubmit={async (values, actions) => {
                 // Здесь будет логика отправки данных на сервер
                 console.log(values)
+                try {
+                    const response = await axios.post('/api/v1/login', { username: values.login, password: values.password })
+                    const token = response.data.token;
+                    window.localStorage.setItem("JWT", token);
+                    dispatch(AuthorizationActions.setAuthorization({ isAuthorized: 'Authorized' }))
+                    navigate("/");
+                    dispatch(AuthorizationActions.getAuthorizationState())
+                    
+                } catch(err) {
+                    const errMessage = err.message;
+                    const errCode = err.status
+                    if (errCode === 401) alert('Данный польользователь не зарегестрирован!')
+                    console.log(errMessage)
+                }
                 // actions.setSubmitting(false);
             }}
             validationSchema={loginSchema}
@@ -50,7 +72,7 @@ const LoginForm = () => {
                             placeholder="Password" 
                             className={`form-control${touched.password && errors.password ? " is-invalid" : ""}`}
                         />
-                        <label htmlFor="floatingPassword">Password</label>
+                        <label htmlFor="floatingPassword">Пароль</label>
                         <ErrorMessage className="invalid-feedback" name="password" component="div" />
                     </div>
                     <button 
@@ -58,7 +80,7 @@ const LoginForm = () => {
                         // disabled={isSubmitting} 
                         className="w-100 mb-3 btn btn-outline-primary"
                     >
-                        Submit
+                        Войти
                     </button>
                 </Form>
             )}
