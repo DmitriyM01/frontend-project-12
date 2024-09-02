@@ -1,12 +1,10 @@
-import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 import { actions as AuthorizationActions } from '../slices/authorizationSlice.js';
-import { useDispatch } from 'react-redux';
-import { useRef, useEffect } from 'react'
-
-import { useNavigate } from "react-router-dom";
 
 const loginSchema = yup.object().shape({
     login: yup.string()
@@ -23,6 +21,7 @@ const loginSchema = yup.object().shape({
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     return (
         <Formik
             initialValues={{
@@ -31,14 +30,13 @@ const LoginForm = () => {
             }}
             onSubmit={async (values, actions) => {
                 // Здесь будет логика отправки данных на сервер
-                console.log(values)
                 try {
                     const response = await axios.post('/api/v1/login', { username: values.login, password: values.password })
-                    const token = response.data.token;
+                    const { username, token } = response.data;
                     window.localStorage.setItem("JWT", token);
-                    dispatch(AuthorizationActions.setAuthorization({ isAuthorized: 'Authorized' }))
+                    window.localStorage.setItem("username", username);
+                    dispatch(AuthorizationActions.setAuthorization({ isAuthorized: 'Authorized', username: username, token: token }))
                     navigate("/");
-                    dispatch(AuthorizationActions.getAuthorizationState())
                     
                 } catch(err) {
                     const errMessage = err.message;
@@ -103,7 +101,7 @@ export const Login = () => {
                         </div>
                     </nav>
                     <div className="container-fluid h-100">
-                        <div className="h-100 pt-5 row justify-content-center align-content-center h-100">
+                        <div className="h-100 row justify-content-center align-content-center h-100">
                             <div className="col-12 col-md-8 col-xxl-6">
                                 <div className="card shadow-sm">
                                     <div className="card-body row p-5">
