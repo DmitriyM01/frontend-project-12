@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     entities: {},
+    currentChannel: { id: '1', name: 'general' },
     ids: []
 }
 
@@ -20,9 +21,16 @@ const channelsSlice = createSlice({
             state.entities[id] = payload;
             state.ids = [...state.ids, id]
         },
-        // removeChannel: (state, { payload }) => {
-        //     state.channels = state.channels.filter(({ id }) => id !== payload.id)
-        // }
+        removeChannel: (state, { payload }) => {
+            delete state.entities[payload.id];
+            state.ids = state.ids.filter((id) => id !== payload.id)
+        },
+        renameChannel: (state, { payload }) => {
+            state.entities[payload.id] = payload
+        },
+        setCurrentChannel: (state, { payload }) => {
+            state.currentChannel = { id: payload.id, name: payload.name};
+        }
     }
 })
 

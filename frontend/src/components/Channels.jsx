@@ -1,9 +1,25 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Button, DropdownButton, Dropdown, ButtonGroup  } from 'react-bootstrap';
+import { useState } from 'react';
+import { actions as channelsActions } from '../slices/channelsSlice';
+import { actions as modalsActions } from '../slices/modalsSlice';
 
-const Channels = ({ clickHandler, currentChannel, openModal }) => {
+const Channels = ({ currentChannel }) => {
+  const dispatch = useDispatch();
+
   const channels = useSelector((state) => {
     return state.channelsReducer
   })
+
+  const onDelete = (id) => () => {
+    dispatch(modalsActions.openModal('remove'))
+    dispatch(modalsActions.setData(id))
+  }
+
+  const onRename = (id) => () => {
+    dispatch(modalsActions.openModal('rename'))
+    dispatch(modalsActions.setData(id))
+  }
 
   const { entities, ids } = channels;
 
@@ -11,7 +27,7 @@ const Channels = ({ clickHandler, currentChannel, openModal }) => {
       <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
         <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
           <b>Каналы</b>
-          <button onClick={openModal} type="button" className="p-0 text-primary btn btn-group-vertical">
+          <button onClick={() => dispatch(modalsActions.openModal('add'))} type="button" className="p-0 text-primary btn btn-group-vertical">
             <svg className='border border-primary' id="i-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
               <path d="M16 2 L16 30 M2 16 L30 16" />
             </svg>
@@ -22,21 +38,26 @@ const Channels = ({ clickHandler, currentChannel, openModal }) => {
 
           {ids.map((id) => {
             const channel = entities[id];
-            const btnClasses = `w-100 rounded-0 text-start btn${currentChannel.id === id ? ' btn-secondary' : ''}`
+
             return (
               <li key={channel.id} className="nav-item w-100">
 
-                 {/* <button onClick={() => clickHandler(channel)} type="button" className={btnClasses}>
-                   <span className="me-1">#</span>
-                   {channel.name}
-                 </button> */}
+                <div key={channel.id} className="btn-group d-grid gap-2">
+                  <ButtonGroup>
+                    <Button onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} variant={currentChannel.id === id ? 'secondary' : ''}># {channel.name}</Button>
 
-                <div key={channel.id} className="btn-group">
-                  <button onClick={() => clickHandler(channel)} className={btnClasses} type="button">
-                    # {channel.name}
-                  </button>    
+                    {
+                      channel.removable ?
+                        (
+                          <DropdownButton variant={currentChannel.id === id ? 'secondary' : ''} as={ButtonGroup} title="" id="bg-nested-dropdown">
+                            <Dropdown.Item eventKey="1" onClick={onRename(id)}>Переименовать</Dropdown.Item>
+                            <Dropdown.Item eventKey="2" onClick={onDelete(id)} >Удалить</Dropdown.Item>
+                          </DropdownButton>
+                        )
+                        : null
+                    }
+                  </ButtonGroup>
                 </div>
-
               </li>
             )
           })}

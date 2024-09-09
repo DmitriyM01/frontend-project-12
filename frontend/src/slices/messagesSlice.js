@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
     entities: {},
@@ -19,12 +20,23 @@ const messagesSlice = createSlice({
             state.ids = [...state.ids, id];
             state.entities[id] = payload;
         },
-        // addChannel: (state, { payload }) => {
-        //     state.channels = [ ...state.channels, payload]
-        // },
-        // removeChannel: (state, { payload }) => {
-        //     state.channels = state.channels.filter(({ id }) => id !== payload.id)
-        // }
+        removeMessages: (state, { payload }) => {
+            const entries = Object.entries(state.entities);
+            entries.forEach( async([ key, value ]) => {
+                if (value.channelId === payload.id) {
+                    delete state.entities[key];
+                    state.ids.filter((id) => id !== payload.id)
+
+                    const token = window.localStorage.getItem('JWT')
+                    await axios.delete(`/api/v1/messages/${value.id}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                }
+            })
+            console.log(state.ids)
+        }
     }
 })
 
