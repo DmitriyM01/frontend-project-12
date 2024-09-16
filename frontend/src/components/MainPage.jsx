@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
+import filter from 'leo-profanity';
 
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
@@ -56,8 +57,8 @@ export const MainPage = () => {
     e.preventDefault();
     const token = window.localStorage.getItem("JWT");
     const username = window.localStorage.getItem("username");
-
-    const newMessage = { body: message, channelId: currentChannel, username: username };
+    filter.loadDictionary('ru');
+    const newMessage = { body: filter.clean(message), channelId: currentChannel, username: username };
     try {
       const { data } = await axios.post('/api/v1/messages', newMessage, {
         headers: {

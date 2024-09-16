@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import * as yup from 'yup';
+import filter from 'leo-profanity'
 
 import { actions as modalsActions } from '../slices/modalsSlice.js';
 import { actions as channelsActions } from '../slices/channelsSlice';
@@ -26,7 +27,8 @@ export const AddChannelModal = () => {
     };
 
     const submitHandler = async (values) => {
-        const channelName = values.channelName;
+        filter.loadDictionary('ru');
+        const channelName = filter.clean(values.channelName);
         console.log(values)
         try {
             await schema.validate(values)
@@ -158,7 +160,9 @@ export const RenameChannelModal = () => {
 
     const submitHandler = async (values) => {
         const id = data;
-        const editedChannel = { name: values.channelName };
+        // filter.loadDictionary('ru');
+        const newName = filter.clean(values.channelName)
+        const editedChannel = { name: newName };
         const token = await window.localStorage.getItem('JWT');
 
         try {
