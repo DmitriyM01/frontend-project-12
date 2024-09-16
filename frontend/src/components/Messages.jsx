@@ -1,23 +1,6 @@
 import { useSelector } from "react-redux";
 
 const Messages = ({ currentMessages }) => {
-    // const messages = useSelector((state) => {
-    //     return state.messagesReducer
-    // })
-
-    // const currentMessages = {
-    //     entities: {},
-    //     ids: []
-    // };
-    // console.log(messages.entities)
-
-    // messages.ids.forEach((id) => {
-    //     if (messages.entities[id].channelId.id === currentChannel.id) {
-    //         currentMessages.ids = [...currentMessages.ids, id];
-    //         currentMessages.entities[id] = messages.entities[id]
-    //     }
-    // })
-
     const { entities, ids } = currentMessages;
 
     return (

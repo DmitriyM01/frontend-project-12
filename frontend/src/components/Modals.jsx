@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, CloseButton } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import * as yup from 'yup';
 
@@ -13,11 +14,12 @@ import { actions as channelsActions } from '../slices/channelsSlice';
 export const AddChannelModal = () => {
     const dispatch = useDispatch(null);
     const { isShowing, modalType } = useSelector((state) => state.modalsReducer);
+    const { t } = useTranslation();
 
     const schema = yup.object().shape({
         channelName: yup.string()
-            .min(3, 'Минимум 3 символа')
-            .max(20, 'Максимум 20 символлов')
+            .min(3, t('errors.min3'))
+            .max(20, t('errors.max'))
       });
 
     const modalHandler = () => {
@@ -55,7 +57,7 @@ export const AddChannelModal = () => {
         <Modal show={isShowing && modalType === 'add'} onHide={modalHandler}>
             <Modal.Header>
                 <Modal.Title>
-                    Добавить канал
+                    {t('channels.addChannel')}
                 </Modal.Title>
                 <CloseButton onClick={modalHandler} />
             </Modal.Header>
@@ -82,10 +84,10 @@ export const AddChannelModal = () => {
                                 ) : null}
                             </Form.Group>
                             <Button onClick={modalHandler} variant='secondary'>
-                                Отменить
+                                {t('buttons.cancel')}
                             </Button>{' '}
                             <Button variant="primary" type="submit">
-                                Отправить
+                                {t('buttons.send')}
                             </Button>
                         </Form>
                     )}
@@ -99,6 +101,7 @@ export const AddChannelModal = () => {
 export const RemoveChannelModal = () => {
     const dispatch = useDispatch(null);
     const { isShowing, modalType, data } = useSelector((state) => state.modalsReducer);
+    const { t } = useTranslation();
 
     const onRemove = async () => {
         const id = data
@@ -121,18 +124,18 @@ export const RemoveChannelModal = () => {
         <Modal show={isShowing && modalType === 'remove'} onHide={() => dispatch(modalsActions.closeModal())}>
             <Modal.Header>
                 <Modal.Title>
-                    Удалить канал
+                    {t('channels.delete')}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                Вы уверенны?
+                {t('questions.areYouSure')}
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={() => dispatch(modalsActions.closeModal())} variant="secondary">
-                    Отменить
+                    {t('buttons.cancel')}
                 </Button>
                 <Button variant="danger" onClick={onRemove}>
-                    Удалить
+                    {t('buttons.delete')}
                 </Button>
             </Modal.Footer>
         </Modal>
@@ -143,12 +146,13 @@ export const RemoveChannelModal = () => {
 export const RenameChannelModal = () => {
     const dispatch = useDispatch(null);
     const { currentChannel, entities } = useSelector((state) => state.channelsReducer);
-    const { isShowing, data, modalType } = useSelector((state) => state.modalsReducer)
+    const { isShowing, data, modalType } = useSelector((state) => state.modalsReducer);
+    const { t } = useTranslation();
 
     const schema = yup.object().shape({
         channelName: yup.string()
-            .min(3, 'Минимум 3 символа')
-            .max(20, 'Максимум 20 символлов')
+            .min(3, t('min3'))
+            .max(20, t('max'))
       });
 
     const submitHandler = async (values) => {
@@ -172,7 +176,7 @@ export const RenameChannelModal = () => {
         <Modal show={isShowing && modalType === 'rename'} onHide={() => dispatch(modalsActions.closeModal())}>
             <Modal.Header>
                 <Modal.Title>
-                    Переименовать канал?
+                    {t('channels.renameChannel')}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
@@ -198,10 +202,10 @@ export const RenameChannelModal = () => {
                                 ) : null}
                             </Form.Group>
                             <Button onClick={() => dispatch(modalsActions.closeModal())} variant='secondary'>
-                                Отменить
+                                {t('buttons.cancel')}
                             </Button>{' '}
                             <Button variant="primary" type="submit">
-                                Отправить
+                                {t('buttons.send')}
                             </Button>
                         </Form>
                     )}

@@ -3,9 +3,11 @@ import { Button, DropdownButton, Dropdown, ButtonGroup  } from 'react-bootstrap'
 import { useState } from 'react';
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as modalsActions } from '../slices/modalsSlice';
+import { useTranslation } from 'react-i18next';
 
 const Channels = ({ currentChannel }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const channels = useSelector((state) => {
     return state.channelsReducer
@@ -26,7 +28,7 @@ const Channels = ({ currentChannel }) => {
     return (
       <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
         <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-          <b>Каналы</b>
+          <b>{t('channels.channels')}</b>
           <button onClick={() => dispatch(modalsActions.openModal('add'))} type="button" className="p-0 text-primary btn btn-group-vertical">
             <svg className='border border-primary' id="i-plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
               <path d="M16 2 L16 30 M2 16 L30 16" />
@@ -50,8 +52,8 @@ const Channels = ({ currentChannel }) => {
                       channel.removable ?
                         (
                           <DropdownButton variant={currentChannel.id === id ? 'secondary' : ''} as={ButtonGroup} title="" id="bg-nested-dropdown">
-                            <Dropdown.Item eventKey="1" onClick={onRename(id)}>Переименовать</Dropdown.Item>
-                            <Dropdown.Item eventKey="2" onClick={onDelete(id)} >Удалить</Dropdown.Item>
+                            <Dropdown.Item eventKey="1" onClick={onRename(id)}>{t('buttons.rename')}</Dropdown.Item>
+                            <Dropdown.Item eventKey="2" onClick={onDelete(id)} >{t('buttons.delete')}</Dropdown.Item>
                           </DropdownButton>
                         )
                         : null

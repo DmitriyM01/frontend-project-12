@@ -5,6 +5,8 @@ import store from './slices/index.js';
 import { actions as messagesActions } from './slices/messagesSlice.js';
 import { actions as channelsActions } from './slices/channelsSlice.js';
 import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
+import i18Instance from './i18n/index.js';
 import { io } from 'socket.io-client';
 const socket = io();
 
@@ -32,9 +34,11 @@ socket.on('renameChannel', (payload) => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <I18nextProvider i18n={i18Instance}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </I18nextProvider>
   </Provider>
 );
 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect,  useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
@@ -17,6 +18,7 @@ export const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentChannel } = useSelector((state) => state.channelsReducer)
+  const { t } = useTranslation();
 
   const [ message, setMessage ] = useState('');
 
@@ -83,7 +85,7 @@ export const MainPage = () => {
                 Hexlet Chat
               </a>
               <button onClick={onLogout} type="button" className="btn btn-primary">
-                Выйти
+                {t('buttons.logout')}
               </button>
             </div>
           </nav>

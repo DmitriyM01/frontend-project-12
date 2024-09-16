@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import { actions as AuthorizationActions } from '../slices/authorizationSlice.js';
 
@@ -21,6 +22,7 @@ const loginSchema = yup.object().shape({
 const LoginForm = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     return (
         <Formik
@@ -41,7 +43,7 @@ const LoginForm = () => {
                 } catch(err) {
                     const errMessage = err.message;
                     const errCode = err.status
-                    if (errCode === 401) alert('Данный пользователь не зарегестрирован!')
+                    if (errCode === 401) alert(t('errors.auth'))
                     console.log(errMessage)
                 }
                 // actions.setSubmitting(false);
@@ -50,7 +52,7 @@ const LoginForm = () => {
         >
             {({ errors, touched, isSubmitting }) => (              
                 <Form className="col-12 col-md-6 mt-3 mt-md-0">
-                    <h1 className="text-center mb-4">Войти</h1>
+                    <h1 className="text-center mb-4">{t('signIn')}</h1>
                     <div className="form-floating mb-3">
                         <Field 
                             id="login" 
@@ -59,7 +61,7 @@ const LoginForm = () => {
                             placeholder="Login" 
                             className={`form-control${touched.login && errors.login ? " is-invalid" : ""}`}
                         />
-                        <label htmlFor="login">Ваш ник</label>
+                        <label htmlFor="login">{t('user.nickname')}</label>
                         <ErrorMessage className="invalid-feedback" name="login" component="div" />
                     </div>                 
                     <div className="form-floating mb-3">
@@ -70,7 +72,7 @@ const LoginForm = () => {
                             placeholder="Password" 
                             className={`form-control${touched.password && errors.password ? " is-invalid" : ""}`}
                         />
-                        <label htmlFor="floatingPassword">Пароль</label>
+                        <label htmlFor="floatingPassword">{t('user.password')}</label>
                         <ErrorMessage className="invalid-feedback" name="password" component="div" />
                     </div>
                     <button 
@@ -78,7 +80,7 @@ const LoginForm = () => {
                         // disabled={isSubmitting} 
                         className="w-100 mb-3 btn btn-outline-primary"
                     >
-                        Войти
+                        {t('buttons.logon')}
                     </button>
                 </Form>
             )}
@@ -89,6 +91,8 @@ const LoginForm = () => {
 
 export const Login = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
     return (
         <div className="h-100">
             <div className="h-100" id="chat">
@@ -96,9 +100,6 @@ export const Login = () => {
                     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
                         <div className="container">
                             <a className="navbar-brand" href="/">Hexlet Chat</a>
-                            {/* <button type="button" className="btn btn-primary">
-                                Выйти
-                            </button> */}
                         </div>
                     </nav>
                     <div className="container-fluid h-100">
@@ -117,8 +118,8 @@ export const Login = () => {
                                     </div>
                                     <div className="card-footer p-4">
                                         <div className="text-center">
-                                            <span>Нет аккаунта?</span>
-                                            <Link to='/signup'>Зарегестрироваться</Link>
+                                            <span>{t('questions.noAccount')}</span>
+                                            <Link to='/signup'>{t('buttons.registration')}</Link>
                                         </div>
                                     </div>
                                 </div>
