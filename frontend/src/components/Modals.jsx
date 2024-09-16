@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button, CloseButton } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
@@ -8,8 +7,8 @@ import axios from 'axios';
 import * as yup from 'yup';
 
 import { actions as modalsActions } from '../slices/modalsSlice.js';
-
 import { actions as channelsActions } from '../slices/channelsSlice';
+import successToast from './toasts/index.js';
 
 export const AddChannelModal = () => {
     const dispatch = useDispatch(null);
@@ -41,6 +40,7 @@ export const AddChannelModal = () => {
                 },
             });
             modalHandler();
+            successToast(t('toasts.add'))
             dispatch(channelsActions.setCurrentChannel(data))
         }
         catch (err) {
@@ -114,6 +114,7 @@ export const RemoveChannelModal = () => {
             })
             dispatch(channelsActions.setCurrentChannel({ id: '1', name: 'general' }))
             dispatch(modalsActions.closeModal())
+            successToast(t('toasts.delete'))
 
         } catch (err) {
             console.log(err)
@@ -167,6 +168,7 @@ export const RenameChannelModal = () => {
                 },
             })
             dispatch(modalsActions.closeModal())
+            successToast(t('toasts.rename'))
         } catch(err) {
             console.log(err)
         }

@@ -4,6 +4,7 @@ import { useEffect,  useState, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
 
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
@@ -102,8 +103,7 @@ export const MainPage = () => {
             </div>
           </div>
         </div>
-        <div className="Toastify">
-        </div>
+        <ToastContainer />
       </div>
     </div>
   )
