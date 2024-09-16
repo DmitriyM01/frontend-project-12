@@ -2,14 +2,14 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { actions as AuthorizationActions } from '../slices/authorizationSlice.js';
 
 const loginSchema = yup.object().shape({
     login: yup.string()
     .required('Это обязательное поле')
-    .min(2, 'Минимум 2 символа')
+    .min(3, 'Минимум 3 символа')
     .max(20, 'Максимум 20 символов'),
     password: yup.string()
     .required('Это обязательное поле')
@@ -41,7 +41,7 @@ const LoginForm = () => {
                 } catch(err) {
                     const errMessage = err.message;
                     const errCode = err.status
-                    if (errCode === 401) alert('Данный польользователь не зарегестрирован!')
+                    if (errCode === 401) alert('Данный пользователь не зарегестрирован!')
                     console.log(errMessage)
                 }
                 // actions.setSubmitting(false);
@@ -88,13 +88,14 @@ const LoginForm = () => {
 
 
 export const Login = () => {
+    const navigate = useNavigate();
     return (
         <div className="h-100">
             <div className="h-100" id="chat">
                 <div className="d-flex flex-column h-100">
                     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
                         <div className="container">
-                            <a className="navbar-brand" href="/">Mini Chat</a>
+                            <a className="navbar-brand" href="/">Hexlet Chat</a>
                             {/* <button type="button" className="btn btn-primary">
                                 Выйти
                             </button> */}
@@ -117,7 +118,7 @@ export const Login = () => {
                                     <div className="card-footer p-4">
                                         <div className="text-center">
                                             <span>Нет аккаунта?</span>
-                                            <a href="/signup">Регистрация</a>
+                                            <Link to='/signup'>Зарегестрироваться</Link>
                                         </div>
                                     </div>
                                 </div>

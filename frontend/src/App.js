@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom';
 import  PageNotFound  from './components/PageNotFound.jsx';
 import { MainPage } from './components/MainPage.jsx';
 import { Login } from './components/Login.jsx';
+import { Signup } from './components/Signup/Signup.jsx';
 
 const PrivateRoute = ({ children }) => {
   const token = window.localStorage.getItem('JWT');
@@ -19,6 +20,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
         <Route path="/" element={<PrivateRoute><MainPage /></PrivateRoute>} />
         <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
+        <Route path="/signup" element={<AuthRoute><Signup /></AuthRoute>} />
       </Routes>
     </BrowserRouter>
   );
