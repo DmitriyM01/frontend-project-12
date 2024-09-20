@@ -1,5 +1,6 @@
 import { SignupForm } from "./components/SignupForm";
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 export const Signup = () => {
     return (
@@ -30,7 +31,7 @@ export const Signup = () => {
                         </div>
                     </div>
                 </div>
-                <div className="Toastify"></div>
+                <ToastContainer />
             </div>
         </div>
     )

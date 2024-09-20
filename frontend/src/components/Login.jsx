@@ -77,7 +77,7 @@ const LoginForm = () => {
                     </div>
                     <button 
                         type="submit" 
-                        // disabled={isSubmitting} 
+                        disabled={isSubmitting} 
                         className="w-100 mb-3 btn btn-outline-primary"
                     >
                         {t('buttons.logon')}

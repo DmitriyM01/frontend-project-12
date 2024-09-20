@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { actions as AuthorizationActions } from '../../../slices/authorizationSlice.js';
 import { signupSchema  } from "../../../schemas/schemas.js";
 import { useTranslation } from 'react-i18next';
+///////
+import {toastError} from '../../toasts/index.js';
 
 export const SignupForm = () => {
     const dispatch = useDispatch();
@@ -32,7 +34,9 @@ export const SignupForm = () => {
                 } catch(err) {
                     const errMessage = err.message;
                     const errCode = err.status
-                    if (errCode === 409) alert('Такой пользователь уже существует')
+                    if (errCode === 409) {
+                        toastError('Такой пользователь уже существует')
+                    }
                     console.log(errMessage)
                 }
                 // actions.setSubmitting(false);
@@ -77,7 +81,7 @@ export const SignupForm = () => {
                     </div>
                     <button 
                         type="submit" 
-                        // disabled={isSubmitting} 
+                        disabled={isSubmitting} 
                         className="w-100 mb-3 btn btn-outline-primary"
                     >
                         {t('buttons.registration')}
