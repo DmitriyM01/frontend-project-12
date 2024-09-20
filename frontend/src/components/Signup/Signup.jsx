@@ -1,4 +1,5 @@
 import { SignupForm } from "./components/SignupForm";
+import { Link } from 'react-router-dom';
 
 export const Signup = () => {
     return (
@@ -7,7 +8,7 @@ export const Signup = () => {
                 <div className="d-flex flex-column h-100">
                     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
                         <div className="container">
-                            <a className="navbar-brand" href="/">Hexlet Chat</a>
+                            <Link className="navbar-brand" to='/'>{'Hexlet Chat'}</ Link>
                         </div>
                     </nav>
                     <div className="container-fluid h-100">

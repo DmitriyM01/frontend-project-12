@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { useEffect,  useState, useRef } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer } from 'react-toastify';
@@ -82,9 +82,7 @@ export const MainPage = () => {
         <div className="d-flex flex-column h-100">
           <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
             <div className="container">
-              <a className="navbar-brand" href="/">
-                Hexlet Chat
-              </a>
+              <Link className="navbar-brand" to='/signup'>{t('Hexlet Chat')}</ Link>
               <button onClick={onLogout} type="button" className="btn btn-primary">
                 {t('buttons.logout')}
               </button>
