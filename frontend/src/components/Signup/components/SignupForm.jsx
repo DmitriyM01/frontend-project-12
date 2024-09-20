@@ -32,7 +32,7 @@ export const SignupForm = () => {
                 } catch(err) {
                     const errMessage = err.message;
                     const errCode = err.status
-                    if (errCode === 409) alert('Данный пользователь уже зарегестрирован')
+                    if (errCode === 409) alert('Такой пользователь уже существует')
                     console.log(errMessage)
                 }
                 // actions.setSubmitting(false);
