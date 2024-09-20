@@ -11,5 +11,5 @@ export const signupSchema = yup.object().shape({
     .min(6, 'Не менее 6 символов')
     .max(20, 'От 6 до 20 символов')
     .required("Это обязательное поле"),
-  confirmPassword: yup.string().required("Это обязательное поле").oneOf([yup.ref('password'), null], 'Пароли должен совпадать'),
+  confirmPassword: yup.string().required("Это обязательное поле").oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
 });
