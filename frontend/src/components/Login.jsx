@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
+import { ToastContainer } from 'react-toastify';
+import { toastError } from './toasts/index.js';
 
 import { actions as AuthorizationActions } from '../slices/authorizationSlice.js';
 
@@ -43,7 +45,7 @@ const LoginForm = () => {
                 } catch(err) {
                     const errMessage = err.message;
                     const errCode = err.status
-                    if (errCode === 401) alert(t('errors.auth'))
+                    if (errCode === 401) toastError(t('errors.auth'))
                     console.log(errMessage)
                 }
                 // actions.setSubmitting(false);
@@ -127,7 +129,7 @@ export const Login = () => {
                         </div>
                     </div>
                 </div>
-                <div className="Toastify"></div>
+                <ToastContainer />
             </div>
         </div>
     )
