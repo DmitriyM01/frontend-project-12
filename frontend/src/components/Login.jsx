@@ -119,7 +119,7 @@ export const Login = () => {
                                     <div className="card-footer p-4">
                                         <div className="text-center">
                                             <span>{t('questions.noAccount')}</span>
-                                            <Link to='/signup'>{t('buttons.registration')}</Link>
+                                            <Link to='/signup'>{t('registration')}</Link>
                                         </div>
                                     </div>
                                 </div>
