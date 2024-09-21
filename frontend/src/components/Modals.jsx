@@ -79,7 +79,7 @@ export const AddChannelModal = () => {
                                     name='channelName'
                                     value={values.channelName}
                                 />
-                                <label class="visually-hidden" for="channelName">Имя канала</label>
+                                <label class="visually-hidden" htmlFor="channelName">Имя канала</label>
                                 {errors.channelName && touched.channelName ? (
                                     <div className='invalid-feedback d-block'>{errors.channelName}</div>
                                 ) : null}
@@ -201,6 +201,7 @@ export const RenameChannelModal = () => {
                                     name='channelName'
                                     value={values.channelName}
                                 />
+                                <label class="visually-hidden" htmlFor="channelName">Имя канала</label>
                                 {errors.channelName && touched.channelName ? (
                                     <div className='invalid-feedback d-block'>{errors.channelName}</div>
                                 ) : null}
