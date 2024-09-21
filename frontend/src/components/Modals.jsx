@@ -199,6 +199,7 @@ export const RenameChannelModal = () => {
                                     onChange={handleChange}
                                     type="text"
                                     name='channelName'
+                                    id='channelName'
                                     value={values.channelName}
                                 />
                                 <label class="visually-hidden" htmlFor="channelName">Имя канала</label>
