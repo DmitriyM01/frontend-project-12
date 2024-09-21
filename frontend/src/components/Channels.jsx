@@ -69,7 +69,9 @@ const Channels = ({ currentChannel }) => {
                   <Dropdown as={ButtonGroup}>
                     <Button
                       onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} 
-                      variant={currentChannel.id === id ? 'secondary w-100 rounded-0 text-start text-truncate' : ''}
+                      // bsPrefix={currentChannel.id === id ? 'w-100 rounded-0 text-start text-truncate btn btn-secondary' : 'btn'}
+                      variant={currentChannel.id === id ? 'secondary' : ''}
+                      className='w-100 rounded-0 text-start text-truncate'
                     >
                       <span class="me-1"># </span>
                       {channel.name}
