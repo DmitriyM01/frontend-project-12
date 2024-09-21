@@ -46,7 +46,13 @@ const Channels = ({ currentChannel }) => {
 
                 <div key={channel.id} className="btn-group d-grid gap-2">
                   <ButtonGroup>
-                    <Button onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} variant={currentChannel.id === id ? 'secondary' : ''}><span class="me-1"># </span>{channel.name}</Button>
+                    <Button 
+                      onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} 
+                      variant={currentChannel.id === id ? 'secondary' : ''}
+                    >
+                      <span class="me-1"># </span>
+                      {channel.name}
+                    </Button>
 
                     {
                       channel.removable ?
