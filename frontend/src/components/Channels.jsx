@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, DropdownButton, Dropdown, ButtonGroup  } from 'react-bootstrap';
+import { Button, Dropdown, ButtonGroup  } from 'react-bootstrap';
 import { useState } from 'react';
 import { actions as channelsActions } from '../slices/channelsSlice';
 import { actions as modalsActions } from '../slices/modalsSlice';
@@ -45,7 +45,7 @@ const Channels = ({ currentChannel }) => {
               <li key={channel.id} className="nav-item w-100">
 
                 <div key={channel.id} className="btn-group d-grid gap-2">
-                  <ButtonGroup>
+                  {/* <ButtonGroup>
                     <Button 
                       onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} 
                       variant={currentChannel.id === id ? 'secondary' : ''}
@@ -64,7 +64,35 @@ const Channels = ({ currentChannel }) => {
                         )
                         : null
                     }
-                  </ButtonGroup>
+                  </ButtonGroup> */}
+
+                  <Dropdown as={ButtonGroup}>
+                    <Button
+                      onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} 
+                      variant={currentChannel.id === id ? 'secondary' : ''}
+                    >
+                      <span class="me-1"># </span>
+                      {channel.name}
+                    </Button>
+
+                    {
+                      channel.removable ?
+                        (
+                          <>
+                            <Dropdown.Toggle split variant={currentChannel.id === id ? 'secondary' : ''} id="dropdown-split-basic">
+                              <span className="visually-hidden">Управление каналом</span>
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                              <Dropdown.Item eventKey="1" onClick={onRename(id)}>{t('buttons.rename')}</Dropdown.Item>
+                              <Dropdown.Item eventKey="2" onClick={onDelete(id)} >{t('buttons.delete')}</Dropdown.Item>
+                            </Dropdown.Menu>
+                          </>
+                        )
+                        : null
+                    }
+                  </Dropdown>
+
                 </div>
               </li>
             )
