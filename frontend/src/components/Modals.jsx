@@ -75,6 +75,7 @@ export const AddChannelModal = () => {
                                     as='input'
                                     onChange={handleChange}
                                     type="text"
+                                    id="channelName"
                                     name='channelName'
                                     value={values.channelName}
                                 />
