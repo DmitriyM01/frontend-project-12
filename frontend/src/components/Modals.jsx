@@ -45,14 +45,12 @@ export const AddChannelModal = () => {
             dispatch(channelsActions.setCurrentChannel(data))
         }
         catch (err) {
-            console.log(err.message)
             const errors = {};
             errors.channelName = err.message;
             return errors;
         }
-        console.log('nnooo')
     }
-    console.log(modalType)
+    // console.log(modalType)
 
     return (
         <Modal show={isShowing && modalType === 'add'} onHide={modalHandler}>

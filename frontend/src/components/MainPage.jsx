@@ -57,6 +57,7 @@ export const MainPage = () => {
     e.preventDefault();
     const token = window.localStorage.getItem("JWT");
     const username = window.localStorage.getItem("username");
+    console.log(filterBadWords(message))
     const newMessage = { body: filterBadWords(message), channelId: currentChannel, username: username };
     try {
       const { data } = await axios.post('/api/v1/messages', newMessage, {
