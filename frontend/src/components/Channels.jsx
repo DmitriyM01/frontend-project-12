@@ -69,7 +69,7 @@ const Channels = ({ currentChannel }) => {
                   <Dropdown as={ButtonGroup}>
                     <Button
                       onClick={() => dispatch(channelsActions.setCurrentChannel(channel))} 
-                      variant={currentChannel.id === id ? 'secondary' : ''}
+                      variant={currentChannel.id === id ? 'w-100 rounded-0 text-start text-truncate btn btn-secondary' : ''}
                     >
                       <span class="me-1"># </span>
                       {channel.name}
@@ -79,7 +79,7 @@ const Channels = ({ currentChannel }) => {
                       channel.removable ?
                         (
                           <>
-                            <Dropdown.Toggle split variant={currentChannel.id === id ? 'w-100 rounded-0 text-start text-truncate btn btn-secondary' : ''} id="dropdown-split-basic">
+                            <Dropdown.Toggle split variant={currentChannel.id === id ? 'btn btn-secondary' : ''} id="dropdown-split-basic">
                               <span className="visually-hidden">Управление каналом</span>
                             </Dropdown.Toggle>
 
