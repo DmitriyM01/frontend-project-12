@@ -1,6 +1,6 @@
 import filter from 'leo-profanity';
 
-export default (text) => {
+const filterBadWords = (text) => {
 
     filter.clearList()
 
@@ -10,3 +10,5 @@ export default (text) => {
 
     return filter.clean(text)
 }
+
+export default filterBadWords

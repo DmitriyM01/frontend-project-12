@@ -73,7 +73,7 @@ const Channels = ({ currentChannel }) => {
                       variant={currentChannel.id === id ? 'secondary' : ''}
                       className='w-100 rounded-0 text-start text-truncate'
                     >
-                      <span class="me-1"># </span>
+                      <span className="me-1"># </span>
                       {channel.name}
                     </Button>
 
