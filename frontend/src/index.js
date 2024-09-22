@@ -1,36 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
+import { io } from 'socket.io-client';
 import App from './App.js';
 import store from './slices/index.js';
 import { actions as messagesActions } from './slices/messagesSlice.js';
 import { actions as channelsActions } from './slices/channelsSlice.js';
-import { Provider } from 'react-redux';
-import { I18nextProvider } from 'react-i18next';
 import i18Instance from './i18n/index.js';
-import { io } from 'socket.io-client';
 import 'react-toastify/dist/ReactToastify.css';
 
 const socket = io();
 
 socket.on('newMessage', (payload) => {
-    console.log(payload);
-    store.dispatch(messagesActions.addMessage(payload))
+  console.log(payload);
+  store.dispatch(messagesActions.addMessage(payload));
 });
 
 socket.on('newChannel', (payload) => {
   console.log(payload);
-  store.dispatch(channelsActions.addChannel(payload))
+  store.dispatch(channelsActions.addChannel(payload));
 });
 
 socket.on('removeChannel', (payload) => {
   console.log(payload);
-  store.dispatch(channelsActions.removeChannel(payload))
-  store.dispatch(messagesActions.removeMessages(payload))
+  store.dispatch(channelsActions.removeChannel(payload));
+  store.dispatch(messagesActions.removeMessages(payload));
 });
 
 socket.on('renameChannel', (payload) => {
   console.log(payload); // { id: 7, name: "new name channel", removable: true }
-  store.dispatch(channelsActions.renameChannel(payload))
+  store.dispatch(channelsActions.renameChannel(payload));
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -41,6 +41,5 @@ root.render(
         <App />
       </React.StrictMode>
     </I18nextProvider>
-  </Provider>
+  </Provider>,
 );
-

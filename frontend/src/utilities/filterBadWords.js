@@ -1,14 +1,13 @@
 import filter from 'leo-profanity';
 
 const filterBadWords = (text) => {
+  filter.clearList();
 
-    filter.clearList()
+  filter.add(filter.getDictionary('en'));
+  filter.add(filter.getDictionary('fr'));
+  filter.add(filter.getDictionary('ru'));
 
-    filter.add(filter.getDictionary('en'))
-    filter.add(filter.getDictionary('fr'))
-    filter.add(filter.getDictionary('ru'))
+  return filter.clean(text);
+};
 
-    return filter.clean(text)
-}
-
-export default filterBadWords
+export default filterBadWords;

@@ -1,14 +1,14 @@
-export const getNormalizedData = (data) => {
-    const result = {
-        entities: {},
-        ids: []
-    }
+export default (data) => {
+  const result = {
+    entities: {},
+    ids: [],
+  };
 
-    data.forEach((el) => {
-        const id = el.id
+  data.forEach((el) => {
+    const { id } = el;
 
-        result.ids.push(id);
-        result.entities[id] = el;
-    })
-    return result;
-}
+    result.ids.push(id);
+    result.entities[id] = el;
+  });
+  return result;
+};
