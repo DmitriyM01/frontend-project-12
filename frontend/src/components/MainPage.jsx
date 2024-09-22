@@ -42,7 +42,7 @@ const MainPage = () => {
 
     fetchChannels(token);
     fetchMessages(token);
-  }, []);
+  }, [navigate, dispatch]);
 
   const onLogout = () => {
     window.localStorage.removeItem('JWT');

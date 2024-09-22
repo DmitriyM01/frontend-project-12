@@ -3,7 +3,7 @@ import {
 } from 'react-router-dom';
 import PageNotFound from './components/PageNotFound.jsx';
 import MainPage from './components/MainPage.jsx';
-import { Login } from './components/Login.jsx';
+import Login from './components/Login.jsx';
 import Signup from './components/Signup/Signup.jsx';
 
 const PrivateRoute = ({ children }) => {
