@@ -3,21 +3,50 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/01b9d5f75c9f1cd9b9d8/maintainability)](https://codeclimate.com/github/DmitriyM01/frontend-project-12/maintainability)
 
-🎯 SimpleSlack
-SimpleSlack — это упрощенная версия Slack с базовыми функциями. Приложение поддерживает регистрацию пользователей, создание каналов, переименование и удаление каналов, а также цензуру на английском и русском языках.
+# 🎯 Hexlet Chat
 
-🚀 Функции
-🔐 Регистрация: Пользователи могут зарегистрироваться и создать свою учетную запись.
-📝 Создание каналов: Зарегистрированные пользователи могут создавать новые каналы для общения.
-✏️ Переименование каналов: Владелец канала может изменить его название.
-🗑️ Удаление каналов: Каналы могут быть удалены владельцем.
-🚫 Цензура: Автоматическая фильтрация нежелательных слов на английском и русском языках.
-🛠️ Технологии
-🟢 Node.js
-⚛️ React
-🔄 Redux Toolkit
-📡 Socket.io
-🌐 i18next
-🎨 Bootstrap
-✅ Yup
-🔧 and others
+&nbsp;&nbsp;&nbsp;&nbsp;**Hexlet Chat** is a simplified version of Slack with basic features. The application supports user registration, channel creation, renaming, and deletion, as well as censorship in English and Russian languages.
+
+---
+
+## 🚀 Features
+
+> - 🔐 **Registration**: Users can register and create their own account.  
+> &nbsp;&nbsp;&nbsp;&nbsp;Each user gets a unique profile.
+>
+> - 📝 **Channel Creation**: Registered users can create new channels for communication.
+> 
+> - ✏️ **Channel Renaming**: Channel owners can rename their channels.  
+> &nbsp;&nbsp;&nbsp;&nbsp;This helps maintain order and structure in conversations.
+>
+> - 🗑️ **Channel Deletion**: Channels can be deleted by the owner.
+> 
+> - 🚫 **Censorship**: Automatic filtering of undesirable words in English and Russian languages.  
+> &nbsp;&nbsp;&nbsp;&nbsp;Censorship is applied in real-time during communication.
+
+---
+
+## 🛠️ Technologies
+
+&nbsp;&nbsp;&nbsp;&nbsp;The project is built using modern technologies:
+
+- 🟢 **Node.js**
+- ⚛️ **React**
+- 🔄 **Redux Toolkit**
+- 📡 **Socket.io**
+- 🌐 **i18next**
+- 🎨 **Bootstrap**
+- ✅ **Yup**
+- 🔧 **and others**
+
+---
+
+## 🌐 Live Demo
+
+You can check out the live demo of the chat application [here](https://frontend-project-12-lml7.onrender.com).
+
+---
+
+## 📜 License
+
+&nbsp;&nbsp;&nbsp;&nbsp;This project is licensed under the [MIT](https://opensource.org/licenses/MIT) License.
