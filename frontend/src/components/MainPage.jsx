@@ -20,6 +20,7 @@ const MainPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentChannel } = useSelector((state) => state.channelsReducer);
+  const { modalType } = useSelector((state) => state.modalsReducer);
   const { t } = useTranslation();
 
   const [message, setMessage] = useState('');
@@ -72,9 +73,12 @@ const MainPage = () => {
   return (
     <div className="h-100">
 
-      <AddChannelModal />
-      <RemoveChannelModal />
-      <RenameChannelModal />
+      {/* <AddChannelModal /> */}
+      {/* <RenameChannelModal /> */}
+      {/* <RemoveChannelModal /> */}
+      {modalType === 'add' ? <AddChannelModal /> : null}
+      {modalType === 'rename' ? <RenameChannelModal /> : null}
+      {modalType === 'remove' ? <RemoveChannelModal /> : null}
 
       <div className="h-100" id="chat">
         <div className="d-flex flex-column h-100">

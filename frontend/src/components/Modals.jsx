@@ -6,8 +6,9 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import * as yup from 'yup';
-import filterBadWords from '../utilities/filterBadWords.js';
+import { useEffect, useRef } from 'react';
 
+import filterBadWords from '../utilities/filterBadWords.js';
 import { actions as modalsActions } from '../slices/modalsSlice.js';
 import { actions as channelsActions } from '../slices/channelsSlice';
 import successToast from './toasts/index.js';
@@ -16,6 +17,7 @@ export const AddChannelModal = () => {
   const dispatch = useDispatch(null);
   const { isShowing, modalType } = useSelector((state) => state.modalsReducer);
   const { t } = useTranslation();
+  const ref = useRef(null);
 
   const schema = yup.object().shape({
     channelName: yup.string()
@@ -26,6 +28,8 @@ export const AddChannelModal = () => {
   const modalHandler = () => {
     dispatch(modalsActions.closeModal());
   };
+
+  useEffect(() => ref.current.focus());
 
   const submitHandler = async (values) => {
     const channelName = filterBadWords(values.channelName);
@@ -74,6 +78,7 @@ export const AddChannelModal = () => {
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
                 <Form.Control
+                  ref={ref}
                   as="input"
                   onChange={handleChange}
                   type="text"
@@ -106,8 +111,13 @@ export const RemoveChannelModal = () => {
   const dispatch = useDispatch(null);
   const { isShowing, modalType, data } = useSelector((state) => state.modalsReducer);
   const { t } = useTranslation();
+  const ref = useRef(null);
 
-  const onRemove = async () => {
+  useEffect(() => ref.current.focus());
+
+  const onRemove = async (e) => {
+    e.preventDefault();
+
     const id = data;
     try {
       const token = await window.localStorage.getItem('JWT');
@@ -135,12 +145,14 @@ export const RemoveChannelModal = () => {
         {t('questions.areYouSure')}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => dispatch(modalsActions.closeModal())} variant="secondary">
-          {t('buttons.cancel')}
-        </Button>
-        <Button variant="danger" onClick={onRemove}>
-          {t('buttons.delete')}
-        </Button>
+        <form>
+          <Button onClick={() => dispatch(modalsActions.closeModal())} variant="secondary">
+            {t('buttons.cancel')}
+          </Button>
+          <Button ref={ref} type="submit" variant="danger" onClick={onRemove}>
+            {t('buttons.delete')}
+          </Button>
+        </form>
       </Modal.Footer>
     </Modal>
   );
@@ -150,12 +162,15 @@ export const RenameChannelModal = () => {
   const dispatch = useDispatch(null);
   const { isShowing, data, modalType } = useSelector((state) => state.modalsReducer);
   const { t } = useTranslation();
+  const ref = useRef(null);
 
   const schema = yup.object().shape({
     channelName: yup.string()
       .min(3, t('min3'))
       .max(20, t('max')),
   });
+
+  useEffect(() => ref.current.focus());
 
   const submitHandler = async (values) => {
     const id = data;
@@ -197,6 +212,7 @@ export const RenameChannelModal = () => {
             <Form onSubmit={handleSubmit}>
               <Form.Group className="mb-3">
                 <Form.Control
+                  ref={ref}
                   as="input"
                   onChange={handleChange}
                   type="text"

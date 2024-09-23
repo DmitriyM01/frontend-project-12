@@ -1,7 +1,6 @@
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
-import * as yup from 'yup';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
@@ -10,17 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { toastError } from './toasts/index.js';
 
 import { actions as AuthorizationActions } from '../slices/authorizationSlice.js';
-
-const loginSchema = yup.object().shape({
-  login: yup.string()
-    .required('Это обязательное поле')
-    .min(3, 'Минимум 3 символа')
-    .max(20, 'Максимум 20 символов'),
-  password: yup.string()
-    .required('Это обязательное поле')
-    .min(4, 'Минимум 4 символа')
-    .max(20, 'Максимум 20 символов'),
-});
+import { loginSchema } from '../schemas/schemas.js';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -43,10 +32,11 @@ const LoginForm = () => {
           dispatch(AuthorizationActions.setAuthorization({ isAuthorized: 'Authorized', username, token }));
           navigate('/');
         } catch (err) {
-          const errMessage = err.message;
+          // const errMessage = err.message;
           const errCode = err.status;
           if (errCode === 401) toastError(t('errors.auth'));
-          console.log(errMessage);
+          if (err.code === 'ERR_NETWORK') toastError(t('errors.network'));
+          console.log(err);
         }
         // actions.setSubmitting(false);
       }}

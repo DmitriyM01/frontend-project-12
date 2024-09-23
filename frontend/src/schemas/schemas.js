@@ -13,3 +13,14 @@ export default yup.object().shape({
     .required('Это обязательное поле'),
   confirmPassword: yup.string().required('Это обязательное поле').oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
 });
+
+export const loginSchema = yup.object().shape({
+  login: yup.string()
+    .required('Это обязательное поле')
+    .min(3, 'Минимум 3 символа')
+    .max(20, 'Максимум 20 символов'),
+  password: yup.string()
+    .required('Это обязательное поле')
+    .min(4, 'Минимум 4 символа')
+    .max(20, 'Максимум 20 символов'),
+});

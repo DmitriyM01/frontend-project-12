@@ -40,6 +40,7 @@ const SignupForm = () => {
           if (errCode === 409) {
             toastError('Такой пользователь уже существует');
           }
+          if (err.code === 'ERR_NETWORK') toastError(t('errors.network'));
           console.log(errMessage);
         }
         // actions.setSubmitting(false);
