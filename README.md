@@ -44,9 +44,3 @@
 ## 🌐 Live Demo
 
 You can check out the live demo of the chat application [here](https://frontend-project-12-lml7.onrender.com).
-
----
-
-## 📜 License
-
-&nbsp;&nbsp;&nbsp;&nbsp;This project is licensed under the [MIT](https://opensource.org/licenses/MIT) License.
